@@ -13,6 +13,14 @@ function TicTacToe() {
     checkWinner();
   }, [player]);
 
+  useEffect(() => {
+    const allCellFilled = cellArr.every(e => e);
+    if(allCellFilled){
+      alert("Game Over");
+      resetState();
+    }
+  }, [JSON.stringify(cellArr)]);
+
   const resetState = () => {
     setCellArr(new Array(9).fill(''));
     setPlayer('X');
@@ -39,7 +47,6 @@ function TicTacToe() {
     for( let key in winnerObj) {
 
        for(let i = 0; i<winnerObj[key].length; i++){
-          console.log(winnerObj[key][i])
           const xPlayer =winnerObj[key][i].every(e => cellArr[e] === 'X');
 
           if(xPlayer){
@@ -65,7 +72,6 @@ function TicTacToe() {
     if(!cellArrClone[num]){
       cellArrClone[num] = player;
 
-      console.log(cellArrClone);
 
       setPlayer((lastPlayer) => {
         if(lastPlayer === 'X') return 'O';
@@ -73,7 +79,6 @@ function TicTacToe() {
       });
 
       setCellArr(cellArrClone);
-      //checkWinner();
     }
     
   }
